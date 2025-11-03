@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+
 import MainNav from './MainNav.jsx';
 
 const StyledSidebar = styled.aside`

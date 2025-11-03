@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
+import { styled } from 'styled-components';
+
 import Header from './Header.jsx';
 import SideBar from './SideBar.jsx';
-import { styled } from 'styled-components';
 
 const StyledAppLayout = styled.div`
   display: grid;
@@ -10,8 +11,16 @@ const StyledAppLayout = styled.div`
   height: 100vh;
 `;
 const Main = styled.main`
-  background-color: green;
+  background-color: var(--color-grey-0);
   padding: 4rem 4.8rem 6.4rem;
+`;
+
+const Container = styled.div`
+  max-width: 120rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
 `;
 
 function AppLayout() {
@@ -20,7 +29,9 @@ function AppLayout() {
       <Header />
       <SideBar />
       <Main>
-        <Outlet />
+        <Container>
+          <Outlet />
+        </Container>
       </Main>
     </StyledAppLayout>
   );
