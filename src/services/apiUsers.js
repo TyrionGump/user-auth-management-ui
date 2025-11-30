@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import UserType from '../type/UserType.jsx';
+import UserType from '../features/users/UserType.jsx';
 
 const url = 'http://localhost:8080/users';
 
@@ -15,7 +15,6 @@ export async function createUser(user) {
 }
 
 export async function updateUser(user, id) {
-  console.log(id);
   return axios
     .put(url + `/${id}`, user)
     .then((res) => res.data)

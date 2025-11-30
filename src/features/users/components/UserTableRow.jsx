@@ -1,10 +1,11 @@
-import { useState } from 'react';
 import { HiPencil, HiTrash } from 'react-icons/hi2';
 import { styled } from 'styled-components';
 
-import UserType from '../../type/UserType.jsx';
+import ConfirmDelete from '../../../components/ui/ConfirmDelete.jsx';
+import Modal from '../../../components/ui/Modal.jsx';
+import { useDeleteUser } from '../api/useDeleteUser.js';
+import UserType from '../UserType.jsx';
 
-import { useDeleteUser } from './useDeleteUser.js';
 import UserCreationForm from './UserCreationForm.jsx';
 
 const TableRow = styled.div`
@@ -43,7 +44,6 @@ const Placeholder = styled.div`
 `;
 
 function UserTableRow({ user }) {
-  const [showForm, setShowForm] = useState(false);
   const { isDeleting, deleteUser } = useDeleteUser();
   const { id, name, email } = user;
 
@@ -54,17 +54,31 @@ function UserTableRow({ user }) {
         <NameFiled>{name}</NameFiled>
         <EmailField>{email}</EmailField>
         <div>
-          <button onClick={() => setShowForm((isShown) => !isShown)}>
-            <HiPencil />
-          </button>
-          <button onClick={() => deleteUser(id)} disabled={isDeleting}>
-            <HiTrash />
-          </button>
+          <Modal>
+            <Modal.Open opens={'edit-user-form'}>
+              <button>
+                <HiPencil />
+              </button>
+            </Modal.Open>
+            <Modal.Window name={'edit-user-form'}>
+              <UserCreationForm userToEdit={user} />
+            </Modal.Window>
+            <Modal.Open opens={'delete-user-form'}>
+              <button>
+                <HiTrash />
+              </button>
+            </Modal.Open>
+            <Modal.Window name={'delete-user-form'}>
+              <ConfirmDelete
+                resourceName={'user'}
+                onConfirm={() => deleteUser(id)}
+                disabled={isDeleting}
+              />
+            </Modal.Window>
+          </Modal>
         </div>
-        Delete
         <Placeholder>placeHolder</Placeholder>
       </TableRow>
-      {showForm && <UserCreationForm userToEdit={user} />}
     </>
   );
 }

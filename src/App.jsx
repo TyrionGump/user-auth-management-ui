@@ -3,10 +3,10 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
+import AppLayout from './components/layout/AppLayout.jsx';
 import DashBoard from './pages/DashBoard.jsx';
 import PageNotFound from './pages/PageNotFound.jsx';
 import Users from './pages/Users.jsx';
-import AppLayout from './ui/AppLayout.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {

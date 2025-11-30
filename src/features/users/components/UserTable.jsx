@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { styled } from 'styled-components';
 
-import { getAllUsers } from '../../services/apiUsers.js';
-import Spinner from '../../ui/Spinner.jsx';
+import Spinner from '../../../components/ui/Spinner.jsx';
+import { getAllUsers } from '../../../services/apiUsers.js';
 
 import UserTableRow from './UserTableRow.jsx';
 

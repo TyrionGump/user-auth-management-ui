@@ -1,13 +1,9 @@
-import { useState } from 'react';
-
-import UserCreationForm from '../features/users/UserCreationForm.jsx';
-import UserTable from '../features/users/UserTable.jsx';
-import Button from '../ui/Button.jsx';
-import Heading from '../ui/Heading.jsx';
-import Row from '../ui/Row.jsx';
+import Heading from '../components/ui/Heading.jsx';
+import Row from '../components/ui/Row.jsx';
+import AddUser from '../features/users/components/AddUser.jsx';
+import UserTable from '../features/users/components/UserTable.jsx';
 
 function Users() {
-  const [isCreatingNew, setIsCreatingNew] = useState(false);
   return (
     <>
       <Row type={'horizontal'}>
@@ -18,8 +14,8 @@ function Users() {
       <Row type={'vertical'}>
         <UserTable />
       </Row>
-      <Button onClick={() => setIsCreatingNew((prev) => !prev)}>Add new User</Button>
-      {isCreatingNew && <UserCreationForm />}
+
+      <AddUser />
     </>
   );
 }

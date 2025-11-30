@@ -1,25 +1,25 @@
-import js from "@eslint/js";
-import globals from "globals";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
-import { defineConfig, globalIgnores } from "eslint/config";
-import react from "eslint-plugin-react";
-import importPlugin from "eslint-plugin-import";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
-import unusedImports from "eslint-plugin-unused-imports";
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import { defineConfig, globalIgnores } from 'eslint/config'
+import react from 'eslint-plugin-react'
+import importPlugin from 'eslint-plugin-import'
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import unusedImports from 'eslint-plugin-unused-imports'
 
 export default defineConfig([
-  globalIgnores(["dist", "eslint.config.js", "vite.config.js"]),
+  globalIgnores(['dist', 'eslint.config.js', 'vite.config.js']),
   {
-    files: ["**/*.{js,jsx}"],
+    files: ['**/*.{js,jsx}'],
 
     plugins: {
-      "unused-imports": unusedImports,
+      'unused-imports': unusedImports,
     },
 
     extends: [
       js.configs.recommended,
-      reactHooks.configs["recommended-latest"],
+      reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
       react.configs.flat.recommended,
       importPlugin.flatConfigs.recommended,
@@ -29,49 +29,49 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
       parserOptions: {
-        ecmaVersion: "latest",
+        ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
-        sourceType: "module",
+        sourceType: 'module',
       },
     },
     settings: {
       react: {
-        version: "detect",
+        version: 'detect',
       },
     },
     rules: {
-      "react/react-in-jsx-scope": "off",
-      "react/jsx-uses-react": "off",
-      "no-unused-vars": "off",
-      "unused-imports/no-unused-imports": "error",
-      "unused-imports/no-unused-vars": [
-        "error",
+      'react/react-in-jsx-scope': 'off',
+      'react/jsx-uses-react': 'off',
+      'no-unused-vars': 'off',
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': [
+        'warn',
         {
-          vars: "all",
-          args: "after-used",
+          vars: 'all',
+          args: 'after-used',
           ignoreRestSiblings: true,
-          varsIgnorePattern: "^_",
-          argsIgnorePattern: "^_",
+          varsIgnorePattern: '^_',
+          argsIgnorePattern: '^_',
         },
       ],
-      "import/order": [
-        "error",
+      'import/order': [
+        'error',
         {
           groups: [
-            "builtin",
-            "external",
-            "internal",
-            "parent",
-            "sibling",
-            "index",
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
           ],
-          "newlines-between": "always",
+          'newlines-between': 'always',
           alphabetize: {
-            order: "asc",
+            order: 'asc',
             caseInsensitive: true,
           },
         },
       ],
     },
   },
-]);
+])

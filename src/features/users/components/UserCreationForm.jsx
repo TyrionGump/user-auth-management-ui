@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 
-import Button from '../../ui/Button.jsx';
-import Form from '../../ui/Form.jsx';
-import FormRow from '../../ui/FormRow.jsx';
-import Input from '../../ui/Input.jsx';
+import Button from '../../../components/ui/Button.jsx';
+import Form from '../../../components/ui/Form.jsx';
+import FormRow from '../../../components/ui/FormRow.jsx';
+import Input from '../../../components/ui/Input.jsx';
+import { useCreateUser } from '../api/useCreateUser.js';
+import { useUpdateUser } from '../api/useUpdateUser.js';
 
-import { useCreateUser } from './useCreateUser.js';
-import { useUpdateUser } from './useUpdateUser.js';
-
-function UserCreationForm({ userToEdit = {} }) {
+// eslint-disable-next-line react/prop-types
+function UserCreationForm({ userToEdit = {}, onCloseModal }) {
   const { isCreating, createUser } = useCreateUser();
   const { isUpdating, updateUser } = useUpdateUser();
 
@@ -23,14 +23,27 @@ function UserCreationForm({ userToEdit = {} }) {
 
   function onSubmit(data) {
     if (isEditSession) {
-      updateUser({ newUserData: data, id: editId }, { onSuccess: (data) => reset({ ...data }) });
+      updateUser(
+        { newUserData: data, id: editId },
+        {
+          onSuccess: (data) => {
+            reset({ ...data });
+            onCloseModal?.();
+          },
+        },
+      );
     } else {
-      createUser(data, { onSuccess: () => reset() });
+      createUser(data, {
+        onSuccess: () => {
+          reset();
+          onCloseModal?.();
+        },
+      });
     }
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)} type={onCloseModal ? 'modal' : 'regular'}>
       <FormRow label={'Name'} error={errors?.name?.message}>
         <Input
           type={'text'}
@@ -53,7 +66,7 @@ function UserCreationForm({ userToEdit = {} }) {
         />
       </FormRow>
       <FormRow>
-        <Button variation={'secondary'} type={'reset'}>
+        <Button variation={'secondary'} type={'reset'} onClick={() => onCloseModal?.()}>
           Cancel
         </Button>
         <Button disabled={isCreating}>Add User</Button>
