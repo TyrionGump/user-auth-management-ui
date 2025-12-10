@@ -4,12 +4,7 @@ function useOutsideClick(handler, listenCapture = true) {
   const ref = useRef();
 
   useEffect(() => {
-    console.log('useOutsideClick');
-
     function handleClickOutside(event) {
-      console.log('handleClickOutside');
-      console.log(ref);
-      console.log(handler);
       if (ref.current && !ref.current.contains(event.target)) {
         handler();
       }
