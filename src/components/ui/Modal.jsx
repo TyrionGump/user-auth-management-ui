@@ -55,7 +55,6 @@ const Button = styled.button`
 `;
 
 const ModalContext = createContext();
-console.log('123');
 
 // eslint-disable-next-line react/prop-types
 function Modal({ children }) {
