@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
+import Menus from '../../../components/ui/Menus.jsx';
 import Spinner from '../../../components/ui/Spinner.jsx';
 import Table from '../../../components/ui/Table.jsx';
 import { getAllUsers } from '../../../services/apiUsers.js';
@@ -12,17 +13,16 @@ function UserTable() {
   if (isLoading) return <Spinner />;
 
   return (
-    <Table columns={'0.6fr 1.8fr 2.2fr 1fr 1fr 1fr'}>
-      <Table.Header role="row">
-        <div>id</div>
-        <div>name</div>
-        <div>email</div>
-        <div>placeholder</div>
-        <div>placeholder</div>
-        <div>placeholder</div>
-      </Table.Header>
-      <Table.Body data={users} render={(user) => <UserTableRow key={user.id} user={user} />} />
-    </Table>
+    <Menus>
+      <Table columns={'0.6fr 2.8fr 3.2fr 1fr'}>
+        <Table.Header role="row">
+          <div>id</div>
+          <div>name</div>
+          <div>email</div>
+        </Table.Header>
+        <Table.Body data={users} render={(user) => <UserTableRow key={user.id} user={user} />} />
+      </Table>
+    </Menus>
   );
 }
 
