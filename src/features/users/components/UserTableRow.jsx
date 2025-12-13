@@ -2,6 +2,7 @@ import { HiPencil, HiTrash } from 'react-icons/hi2';
 import { styled } from 'styled-components';
 
 import ConfirmDelete from '../../../components/ui/ConfirmDelete.jsx';
+import Menus from '../../../components/ui/Menus.jsx';
 import Modal from '../../../components/ui/Modal.jsx';
 import Table from '../../../components/ui/Table.jsx';
 import { useDeleteUser } from '../api/useDeleteUser.js';
@@ -27,11 +28,6 @@ const EmailField = styled.div`
   color: var(--color-green-700);
 `;
 
-const Placeholder = styled.div`
-  font-family: 'Sono', serif;
-  font-weight: 600;
-`;
-
 function UserTableRow({ user }) {
   const { isDeleting, deleteUser } = useDeleteUser();
   const { id, name, email } = user;
@@ -43,29 +39,31 @@ function UserTableRow({ user }) {
       <EmailField>{email}</EmailField>
       <div>
         <Modal>
-          <Modal.Open opens={'edit-user-form'}>
-            <button>
-              <HiPencil />
-            </button>
-          </Modal.Open>
-          <Modal.Window name={'edit-user-form'}>
-            <UserCreationForm userToEdit={user} />
-          </Modal.Window>
-          <Modal.Open opens={'delete-user-form'}>
-            <button>
-              <HiTrash />
-            </button>
-          </Modal.Open>
-          <Modal.Window name={'delete-user-form'}>
-            <ConfirmDelete
-              resourceName={'user'}
-              onConfirm={() => deleteUser(id)}
-              disabled={isDeleting}
-            />
-          </Modal.Window>
+          <Menus.Menu>
+            <Menus.Toggle id={user.id} />
+            <Menus.List id={user.id}>
+              <Modal.Open opens={'edit-user-form'}>
+                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+              </Modal.Open>
+              <Modal.Open opens={'delete-user-form'}>
+                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
+
+            <Modal.Window name={'edit-user-form'}>
+              <UserCreationForm userToEdit={user} />
+            </Modal.Window>
+
+            <Modal.Window name={'delete-user-form'}>
+              <ConfirmDelete
+                resourceName={'user'}
+                onConfirm={() => deleteUser(id)}
+                disabled={isDeleting}
+              />
+            </Modal.Window>
+          </Menus.Menu>
         </Modal>
       </div>
-      <Placeholder>placeHolder</Placeholder>
     </Table.Row>
   );
 }
